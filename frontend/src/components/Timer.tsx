@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button"
 import svgStyles from "@styles/svg.module.css"
-import { Container } from "react-bootstrap"
+
 function Timer() {
   return (
     <div className="vw-100 vh-100 row align-content-center justify-content-center">

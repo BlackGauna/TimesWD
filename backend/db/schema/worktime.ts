@@ -1,4 +1,4 @@
-import { date, integer, pgTable, serial, text } from "drizzle-orm/pg-core"
+import { integer, pgTable, serial, timestamp } from "drizzle-orm/pg-core"
 import { userTable } from "./user"
 import { relations } from "drizzle-orm"
 
@@ -7,8 +7,8 @@ export const workTimeTable = pgTable("work_time", {
   userId: integer("user_id")
     .references(() => userTable.id)
     .notNull(),
-  startedAt: date("started_at").notNull(),
-  endedAt: date("ended_at").notNull(),
+  startedAt: timestamp("started_at").notNull(),
+  endedAt: timestamp("ended_at").notNull(),
 })
 
 export const workTimeRelations = relations(workTimeTable, ({ one }) => ({
