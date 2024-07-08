@@ -1,0 +1,10 @@
+{
+  "name": "timeswd",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd backend && bun --watch run server.ts\" \"cd frontend && bunx --bun vite\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
