@@ -1,16 +1,12 @@
-.buttplay {
+.buttonplay {
   border-color: yellowgreen !important;
 }
-.buttstop {
+.buttonstop {
   border-color: red !important;
 }
 
-button:hover {
+.button:hover {
   background-color: lightgray !important;
-}
-
-.butt:hover .play {
-  fill: yellowgreen !important;
 }
 
 .svg {

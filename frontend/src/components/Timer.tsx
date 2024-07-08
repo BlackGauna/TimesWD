@@ -3,10 +3,10 @@ import svgStyles from "@styles/svg.module.css"
 import { Container } from "react-bootstrap"
 function Timer() {
   return (
-    <Container className="vw-100 vh-100 d-flex align-items-center justify-content-center">
-      <div className="w-100 d-flex justify-content-around">
+    <div className="vw-100 vh-100 row align-content-center justify-content-center">
+      <div className="w-100 d-flex justify-content-evenly">
         <Button
-          className={`rounded-circle ${svgStyles.buttplay}`}
+          className={`rounded-circle ${svgStyles.buttonplay} ${svgStyles.button}`}
           variant="outline-primary"
         >
           <svg
@@ -21,7 +21,7 @@ function Timer() {
           </svg>
         </Button>
         <Button
-          className={`rounded-circle ${svgStyles.buttstop}`}
+          className={`rounded-circle ${svgStyles.buttonstop} ${svgStyles.button}`}
           variant="outline-primary"
         >
           <svg
@@ -36,7 +36,11 @@ function Timer() {
           </svg>
         </Button>
       </div>
-    </Container>
+
+      <div className="d-flex justify-content-center">
+        <Button>Übersicht</Button>
+      </div>
+    </div>
   )
 }
 
