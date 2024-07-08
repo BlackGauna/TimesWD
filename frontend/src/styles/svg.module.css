@@ -1,0 +1,28 @@
+.buttplay {
+  border-color: yellowgreen !important;
+}
+.buttstop {
+  border-color: red !important;
+}
+
+button:hover {
+  background-color: lightgray !important;
+}
+
+.butt:hover .play {
+  fill: yellowgreen !important;
+}
+
+.svg {
+  width: 15rem;
+  height: 15rem;
+  margin: -1rem -1rem;
+}
+
+.play {
+  fill: yellowgreen;
+}
+
+.stop {
+  fill: red;
+}
