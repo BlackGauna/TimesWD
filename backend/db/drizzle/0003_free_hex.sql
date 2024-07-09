@@ -1,0 +1,2 @@
+ALTER TABLE "work_time" ALTER COLUMN "started_at" SET DATA TYPE timestamp with time zone;--> statement-breakpoint
+ALTER TABLE "work_time" ALTER COLUMN "ended_at" SET DATA TYPE timestamp with time zone;

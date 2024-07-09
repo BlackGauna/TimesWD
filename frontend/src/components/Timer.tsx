@@ -1,24 +1,93 @@
 import Button from "react-bootstrap/Button"
 import svgStyles from "@styles/svg.module.css"
 import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { treaty } from "@elysiajs/eden"
+import { App } from "../../../backend/server"
+
+const client = treaty<App>("localhost:3000")
 
 function Timer() {
+  const [sessionId, setSessionId] = useState(-1)
   const [startTime, setStartTime] = useState<Date | null>(null)
+  const [endTime, setEndTime] = useState<Date | null>(null)
+
+  const [startDisabled, setStartDisabled] = useState(false)
+  const [stopDisabled, setStopDisabled] = useState(true)
 
   const { userId } = useParams()
-  console.log("userId", userId)
 
-  const onStart = () => {
-    const startDate = Date.now()
+  // get started time from local storage, when user reloaded the page
+  useEffect(() => {
+    const startfromLS = localStorage.getItem("starttime")
+    console.log("startfromLS", startfromLS)
+
+    if (startfromLS !== null) {
+      const startDate = new Date(startfromLS)
+      setStartTime(startDate)
+
+      setStartDisabled(true)
+      setStopDisabled(false)
+    }
+  }, [])
+
+  const onStart = async () => {
+    setStartDisabled(true)
+
+    const startDate = new Date().toISOString()
     setStartTime(startDate)
+
+    console.log("startTime", new Date(startDate).toLocaleTimeString())
+
+    try {
+      const res = await client.worktime.startsession.post({
+        userId: parseInt(userId),
+        startDate: startDate,
+      })
+      console.log(res.data)
+
+      setSessionId(res.data)
+    } catch (error) {
+      setStartDisabled(false)
+
+      throw new Error("Could not start session, please try again")
+    }
+    localStorage.setItem("starttime", startDate)
+
+    setStopDisabled(false)
   }
+
+  const onStop = async () => {
+    setStopDisabled(true)
+
+    const endDate = new Date().toISOString()
+
+    console.log("endDate", new Date(endDate).toLocaleTimeString())
+
+    try {
+      await client.worktime.endsession.post({
+        sessionId: sessionId,
+        endDate: endDate,
+      })
+    } catch (error) {
+      setStopDisabled(false)
+      throw new Error(
+        "Could not save end time to database. Please contact support."
+      )
+    }
+
+    localStorage.clear()
+    setStartDisabled(false)
+  }
+
   return (
     <div className="vw-100 vh-100 row align-content-center justify-content-center">
       <div className="w-100 d-flex justify-content-evenly">
         <Button
           className={`rounded-circle ${svgStyles.buttonplay} ${svgStyles.button}`}
           variant="outline-primary"
+          onClick={onStart}
+          disabled={startDisabled}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +103,8 @@ function Timer() {
         <Button
           className={`rounded-circle ${svgStyles.buttonstop} ${svgStyles.button}`}
           variant="outline-primary"
+          disabled={stopDisabled}
+          onClick={onStop}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

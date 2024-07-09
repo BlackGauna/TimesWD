@@ -7,8 +7,10 @@ export const workTimeTable = pgTable("work_time", {
   userId: integer("user_id")
     .references(() => userTable.id)
     .notNull(),
-  startedAt: timestamp("started_at").notNull().defaultNow(),
-  endedAt: timestamp("ended_at").notNull(),
+  startedAt: timestamp("started_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  endedAt: timestamp("ended_at", { withTimezone: true }),
 })
 
 export const workTimeRelations = relations(workTimeTable, ({ one }) => ({
