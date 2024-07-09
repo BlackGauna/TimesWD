@@ -1,8 +1,6 @@
 # TimesWD
 
-Lösung der Schnupperaufgabe in TypeScript mit Bun + Vite + React.
-
-[Bun](https://bun.sh/) wird hier als schnellere Alternative zu NodeJS benutzt.
+Lösung der Schnupperaufgabe in TypeScript mit [Bun](https://bun.sh/) + [Vite](https://vitejs.dev/) + React. Bun wird hier als schnellere Alternative zu NodeJS benutzt.
 
 ### Backend
 
@@ -16,9 +14,9 @@ Der Mailversand funktioniert über das Package Nodemailer.
 
 ### Frontend
 
-Das Frontend wurde mit [Vite](https://vitejs.dev/) und React aufgebaut - und Bootstrap für UI-Elemente.
+Das Frontend wurde mit Vite und React aufgebaut - und Bootstrap für UI-Elemente.
 
-Zum Laden der Daten aus dem Backend werden eine Mischung aus Elysia (Treaty) und Tanstack/React Query benutzt.
+Zum Laden der Daten aus dem Backend werden eine Mischung aus Elysia (Treaty) und [Tanstack/React Query](https://tanstack.com/query/latest) benutzt.
 
 Der Login ist simpel gelöst: falls die Daten übereinstimmen, wird einfach auf die nächste Seite weitergeleitet. Beim Starten wird die Startzeit in die Datenbank geschrieben und auch im Localstorage des Browsers gespeichert, damit beim Neuladen der Seite die angefangene Arbeitszeit nicht verloren geht. Nach dem Stoppen wird die Endzeit auch in die DB eingetragen und der Localstorage bereinigt. Das Backend schickt dann auch die Mail ab, wenn die Daten in die Datenbank eingespeichert wurden.
 
@@ -27,7 +25,7 @@ Die Übericht gibt alle Arbeitszeiten für den ausgewählten Tag als einfache Li
 # Benutzung
 
 Als Voraussetzung dient Bun, wie oben beschrieben. Die Kommandos sind im Grunde dieselben wie von Node.
-Das Projekt ist in die Ordner frontend und backend aufgeteilt, die je ihre eigenen Pakete haben. Diese muss man jeweils in jedem Ordner mit "bun install" installieren. Im Root-Ordner kann man das auch machen und dann mit bun dev das Frontend und Backend direkt gleichzeitig starten (mithilfe des Pakets "concurrently").
+Das Projekt ist in die Ordner frontend und backend aufgeteilt, die je ihre eigenen Pakete haben. Diese muss man jeweils in jedem Ordner mit "bun install" installieren. Im Root-Ordner kann man das auch machen und dann mit "bun dev" das Frontend und Backend direkt gleichzeitig starten (mithilfe des Pakets [concurrently](https://www.npmjs.com/package/concurrently)).
 
 Doch bevor dies funktioniert, müssen die .env.example Dateien in .env umbenannt und deren Inhalte angepasst werden. Hier sind die Einstellungen von Datenbank, Serveradresse und -port sowie des Mailversands zu finden.
 
