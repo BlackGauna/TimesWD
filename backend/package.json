@@ -3,7 +3,10 @@
   "module": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch run server.ts"
+    "dev": "bun --watch run server.ts",
+    "db:generate": "bun drizzle-kit generate",
+    "db:migrate": "bun drizzle-kit migrate",
+    "db:test": "bun tests/insert.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
