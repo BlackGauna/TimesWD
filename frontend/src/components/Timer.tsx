@@ -1,7 +1,18 @@
 import Button from "react-bootstrap/Button"
 import svgStyles from "@styles/svg.module.css"
+import { useParams } from "react-router-dom"
+import { useState } from "react"
 
 function Timer() {
+  const [startTime, setStartTime] = useState<Date | null>(null)
+
+  const { userId } = useParams()
+  console.log("userId", userId)
+
+  const onStart = () => {
+    const startDate = Date.now()
+    setStartTime(startDate)
+  }
   return (
     <div className="vw-100 vh-100 row align-content-center justify-content-center">
       <div className="w-100 d-flex justify-content-evenly">

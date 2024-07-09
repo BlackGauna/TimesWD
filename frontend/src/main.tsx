@@ -1,17 +1,17 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./App.tsx"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Timer from "./components/Timer.tsx"
 import "bootstrap/dist/css/bootstrap.min.css"
+import Login from "./components/Login.tsx"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Login />,
   },
   {
-    path: "/timer",
+    path: "/timer/:userId",
     element: <Timer />,
   },
 ])

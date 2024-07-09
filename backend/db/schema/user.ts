@@ -1,6 +1,8 @@
 import { relations } from "drizzle-orm"
 import { pgTable, serial, text } from "drizzle-orm/pg-core"
 import { workTimeTable } from "./worktime"
+import { createSelectSchema } from "drizzle-typebox"
+import type { Static } from "elysia"
 
 export const userTable = pgTable("user", {
   id: serial("id").primaryKey(),
@@ -13,3 +15,7 @@ export const userTable = pgTable("user", {
 export const userRelations = relations(userTable, ({ many }) => ({
   workTimes: many(workTimeTable),
 }))
+
+const userSchema = createSelectSchema(userTable)
+export type UserSchema = Static<typeof userSchema>
+export type UserIdandPW = Pick<UserSchema, "id" | "password">
