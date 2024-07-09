@@ -1,6 +1,8 @@
 import { integer, pgTable, serial, timestamp } from "drizzle-orm/pg-core"
 import { userTable } from "./user"
 import { relations } from "drizzle-orm"
+import { createSelectSchema } from "drizzle-typebox"
+import { type Static } from "elysia"
 
 export const workTimeTable = pgTable("work_time", {
   id: serial("id").primaryKey(),
@@ -19,3 +21,7 @@ export const workTimeRelations = relations(workTimeTable, ({ one }) => ({
     references: [userTable.id],
   }),
 }))
+
+const workTimeSchema = createSelectSchema(workTimeTable)
+
+export type WorkTimeSchema = Static<typeof workTimeSchema>

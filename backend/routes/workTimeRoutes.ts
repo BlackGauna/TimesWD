@@ -1,6 +1,6 @@
 import Elysia, { t } from "elysia"
 import { db } from "../db/db"
-import { workTimeTable } from "@schema/worktime"
+import { workTimeTable, type WorkTimeSchema } from "@schema/worktime"
 import { eq } from "drizzle-orm"
 
 const putStartDate = async (userId: number, startDate: Date) => {
@@ -31,7 +31,18 @@ const putEndDate = async (sessionId: number, endDate: Date) => {
   return res as Date
 }
 
+const getUserSessions = async (userId: number) => {
+  const sessions = await db.query.workTimeTable.findMany({
+    where: eq(workTimeTable.userId, userId),
+  })
+
+  return [sessions] as WorkTimeSchema[][]
+}
+
 const workTimeRoutes = new Elysia()
+  .get("/sessions/:userId", async ({ params: { userId } }) =>
+    getUserSessions(parseInt(userId))
+  )
   .post(
     "/startsession",
     async ({ body }) => putStartDate(body.userId, body.startDate),
@@ -47,7 +58,7 @@ const workTimeRoutes = new Elysia()
     async ({ body }) => putEndDate(body.sessionId, body.endDate),
     {
       body: t.Object({
-        sessionId: t.Number(),
+        sessionId: t.Numeric(),
         endDate: t.Date(),
       }),
     }
