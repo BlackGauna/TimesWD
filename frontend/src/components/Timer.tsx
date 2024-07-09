@@ -1,11 +1,11 @@
 import Button from "react-bootstrap/Button"
 import svgStyles from "@styles/svg.module.css"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { treaty } from "@elysiajs/eden"
 import { App } from "../../../backend/server"
 
-const client = treaty<App>("localhost:3000")
+const client = treaty<App>(import.meta.env.VITE_SERVER_URL)
 
 function Timer() {
   const [sessionId, setSessionId] = useState(-1)
@@ -16,6 +16,7 @@ function Timer() {
   const [stopDisabled, setStopDisabled] = useState(true)
 
   const { userId } = useParams()
+  const navigate = useNavigate()
 
   // get started time from local storage, when user reloaded the page
   useEffect(() => {
@@ -120,7 +121,9 @@ function Timer() {
       </div>
 
       <div className="d-flex justify-content-center">
-        <Button>Übersicht</Button>
+        <Button onClick={() => navigate(`/overview/${userId}`)}>
+          Übersicht
+        </Button>
       </div>
     </div>
   )

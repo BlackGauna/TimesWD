@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react"
-import { Container } from "react-bootstrap"
-import Calendar from "react-calendar"
-import "react-calendar/dist/Calendar.css"
-import { useParams } from "react-router-dom"
+import { useCallback, useState } from "react"
+import { Button, Container } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
 import { useSessions } from "../middleware/sessionsQuery"
 
 import { type WorkTimeSchema } from "../../../backend/db/schema/worktime"
 
 function Overview() {
   const { userId } = useParams()
+  const navigate = useNavigate()
+
   const [currentDate, setCurrentDate] = useState<string | null>(null)
 
   //  get sessions info from db
@@ -26,7 +26,7 @@ function Overview() {
 
   const generateDateSessions = () => {
     const empty = <></>
-    if (!currentDate) return empty
+    if (!currentDate || !data) return empty
     const selectedSession: WorkTimeSchema[] = []
 
     for (const session of data!) {
@@ -39,15 +39,13 @@ function Overview() {
 
     return (
       <>
-        <h3 className="d-flex justify-content-center">
-          {new Date(currentDate).toLocaleDateString()}
-        </h3>
         <span className="d-flex justify-content-center">
           <ul>
             {selectedSession.map((session) => (
               <li key={session.id}>
-                {new Date(session.startedAt).toLocaleTimeString()}-
-                {new Date(session.endedAt).toLocaleTimeString()}
+                {new Date(session.startedAt).toLocaleTimeString() +
+                  " - " +
+                  new Date(session.endedAt).toLocaleTimeString()}
               </li>
             ))}
           </ul>
@@ -62,7 +60,17 @@ function Overview() {
 
   return (
     <Container className="row justify-content-center">
-      <div className="d-flex justify-content-center mt-2 mb-4">Overview</div>
+      <div className="d-flex justify-content-center mt-2 mb-5 align-items-center">
+        <h2 style={{ position: "relative" }}>
+          <Button
+            style={{ position: "absolute", right: "120%" }}
+            onClick={() => navigate(`/timer/${userId}`)}
+          >
+            Zurück
+          </Button>
+          Übersicht
+        </h2>
+      </div>
 
       <div className="d-flex justify-content-center">
         <input aria-label="Date" type="date" onChange={(e) => onDatePick(e)} />

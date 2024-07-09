@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     element: <Timer />,
   },
   {
-    path: "/calendar/:userid",
+    path: "/overview/:userId",
     element: <Overview />,
   },
 ])

@@ -2,6 +2,7 @@ import Elysia, { t } from "elysia"
 import { db } from "../db/db"
 import { workTimeTable, type WorkTimeSchema } from "@schema/worktime"
 import { eq } from "drizzle-orm"
+import { sendMail } from "../util/mailer"
 
 const putStartDate = async (userId: number, startDate: Date) => {
   const res = (
@@ -25,10 +26,17 @@ const putEndDate = async (sessionId: number, endDate: Date) => {
         endedAt: endDate,
       })
       .where(eq(workTimeTable.id, sessionId))
-      .returning({ endedAt: workTimeTable.endedAt })
-  )[0].endedAt
+      .returning()
+  )[0]
 
-  return res as Date
+  const message = `Lieber Service,
+
+  Mitarbeiter ${res.userId} hat folgende Arbeitszeit eingereicht:
+  ${res.startedAt} - ${res.endedAt}
+  `
+  sendMail("Neue Arbeitszeit eingereicht", message)
+
+  return res
 }
 
 const getUserSessions = async (userId: number) => {

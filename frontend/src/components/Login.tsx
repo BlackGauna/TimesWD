@@ -13,7 +13,7 @@ import { App } from "../../../backend/server"
 import { treaty } from "@elysiajs/eden"
 import { useNavigate } from "react-router-dom"
 
-const client = treaty<App>("localhost:3000")
+const client = treaty<App>(import.meta.env.VITE_SERVER_URL)
 
 function Login() {
   const [userName, setUserName] = useState("")

@@ -2,7 +2,7 @@ import { treaty } from "@elysiajs/eden"
 import { App } from "../../../backend/server"
 import { useQuery } from "@tanstack/react-query"
 
-const client = treaty<App>("localhost:3000")
+const client = treaty<App>(import.meta.env.VITE_SERVER_URL)
 
 export const useSessions = (userId: string) => {
   return useQuery({
