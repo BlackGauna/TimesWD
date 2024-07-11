@@ -1,6 +1,6 @@
 # TimesWD
 
-Lösung der Schnupperaufgabe in TypeScript mit [Bun](https://bun.sh/) + [Vite](https://vitejs.dev/) + React. Bun wird hier als schnellere Alternative zu NodeJS benutzt.
+Lösung der Schnupperaufgabe in TypeScript mit [Bun](https://bun.sh/) + [Vite](https://vitejs.dev/) + React. Bun wird hier als schnellere Alternative zu NodeJS benutzt. (Man kann auch Node mit diesem Code benutzen, die Skripte müssten dann nur angepasst werden)
 
 ### Backend
 
